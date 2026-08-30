@@ -1,0 +1,52 @@
+policy:
+  name: internal_assistant_v1
+  version: "1.0"
+  workflow: internal_assistant
+  risk_class: medium
+
+  thresholds:
+    performance:
+      verify: 0.40
+      escalate: 0.70
+    cost:
+      warn_multiplier: 1.5
+      stop_multiplier: 3.0
+      budget_usd: 0.10
+    responsibility:
+      redact: 0.45
+      block: 0.75
+
+  routing:
+    fast_path_below: 0.28
+    verify_value_threshold: 0.45
+    min_confidence_for_block: 0.65
+    tight_latency_ms: 1200
+    novelty_force_verify: 0.75
+
+  human_review:
+    required_for:
+      - high_impact_decision
+      - confidential_disclosure
+
+  data_policy:
+    sensitive_entities:
+      - EMAIL_ADDRESS
+      - PHONE_NUMBER
+      - CREDIT_CARD
+      - US_SSN
+      - AADHAAR
+      - API_KEY
+      - PERSON
+      - FINANCIAL_DATA
+      - LOCATION
+    allowed_data_classes: [public, internal]
+    forbidden_data_classes: [confidential, restricted]
+    pii_action:
+      confidential: block
+      restricted: block
+      internal: redact
+      public: redact
+      default: redact
+
+  latency:
+    budget_ms: 2500

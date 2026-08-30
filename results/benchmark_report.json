@@ -1,0 +1,184 @@
+{
+  "label": "3000 traces / profile=mixed / seed=1729",
+  "count": 3000,
+  "seed": 1729,
+  "profile": "mixed",
+  "synthetic_ground_truth": true,
+  "deep_eval_sim_latency_ms": 0.0,
+  "wall_time_s": 21.93,
+  "structural": {
+    "note": "deterministic given the seed; machine-independent. THE HEADLINE RESULT.",
+    "A_no_checker": {
+      "n": 3000,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positive_rate": 0.0,
+      "f1": 0.0,
+      "false_positives": 0,
+      "false_negatives": 366,
+      "fast_path_pct": 1.0,
+      "deep_eval_pct": 0.0,
+      "intervention_pct": 0.0
+    },
+    "B_always_deep": {
+      "n": 3000,
+      "precision": 0.8568,
+      "recall": 0.9317,
+      "false_positive_rate": 0.0216,
+      "f1": 0.8927,
+      "false_positives": 57,
+      "false_negatives": 25,
+      "fast_path_pct": 0.0,
+      "deep_eval_pct": 1.0,
+      "intervention_pct": 0.1327
+    },
+    "C_controlplane": {
+      "n": 3000,
+      "precision": 0.8568,
+      "recall": 0.9317,
+      "false_positive_rate": 0.0216,
+      "f1": 0.8927,
+      "false_positives": 57,
+      "false_negatives": 25,
+      "fast_path_pct": 0.9367,
+      "deep_eval_pct": 0.0633,
+      "intervention_pct": 0.1327
+    },
+    "recall_retained_vs_always_deep": 1.0,
+    "fpr_delta_vs_always_deep": 0.0,
+    "uncertainty_handling": {
+      "no_ground_truth_cases": 104,
+      "confidence_lowered_rate": 1.0,
+      "high_impact_escalated_rate": 1.0
+    }
+  },
+  "runtime_local": {
+    "note": "wall-clock on THIS machine with MOCK evaluators; ratios are indicative, absolute milliseconds are not portable. The 'illustrative_*_with_sim' rows add a hypothetical 0 ms per deep evaluation to model a real (e.g. network LLM) deep path.",
+    "B_always_deep": {
+      "measured_p50_overhead_ms": 3.513,
+      "measured_p95_overhead_ms": 14.227,
+      "measured_mean_overhead_ms": 5.157,
+      "illustrative_p50_with_sim_deep_latency_ms": 3.513,
+      "illustrative_p95_with_sim_deep_latency_ms": 14.227
+    },
+    "C_controlplane": {
+      "measured_p50_overhead_ms": 0.77,
+      "measured_p95_overhead_ms": 3.521,
+      "measured_mean_overhead_ms": 1.086,
+      "illustrative_p50_with_sim_deep_latency_ms": 0.77,
+      "illustrative_p95_with_sim_deep_latency_ms": 3.521
+    },
+    "p95_overhead_reduction_vs_always_deep_measured": 0.753,
+    "expected_added_latency_formula": "C adds deep-path latency on ~deep_eval_pct of traffic vs 100% for always-deep; with a deep path costing X ms, expected added latency ~= 0.063*X vs 1.0*X"
+  },
+  "simulated_cost": {
+    "note": "synthetic compute-unit model, NOT production financial savings. cost_units are relative weights (llm_judge=10, tier-1 total ~2.6); unit price is illustrative.",
+    "unit_price_usd": 2e-05,
+    "cost_units": {
+      "cost_v1": 0.2,
+      "grounding_v1": 1.0,
+      "conflicting_evidence_v1": 0.3,
+      "failure_pattern_v1": 0.2,
+      "pii_pattern_v1": 0.6,
+      "responsibility_v1": 0.3,
+      "bias_lexical_v1": 0.3,
+      "grounding_tfidf_v1": 4.0,
+      "llm_judge_v1": 10.0,
+      "bias_counterfactual_v1": 6.0
+    },
+    "B_always_deep": {
+      "mean_checker_cost_usd": 0.000458,
+      "risk_coverage_per_cent_checker_cost": 20.343
+    },
+    "C_controlplane": {
+      "mean_checker_cost_usd": 7.573e-05,
+      "risk_coverage_per_cent_checker_cost": 123.023
+    },
+    "checker_work_reduction_vs_always_deep": 0.835
+  },
+  "north_star": {
+    "claim": "ControlPlane reduces unnecessary deep verification while retaining comparable detection coverage in this controlled benchmark.",
+    "controlplane_fast_path_pct": 0.9367,
+    "controlplane_deep_eval_pct": 0.0633,
+    "recall_retained_vs_always_deep": 1.0,
+    "learning_effect": {
+      "simulated": true,
+      "before": {
+        "deep_check_rate": 0.064,
+        "recall": 0.9345
+      },
+      "after": {
+        "deep_check_rate": 0.0393,
+        "recall": 1.0
+      },
+      "deep_check_rate_delta": -0.0247,
+      "recall_delta": 0.0655,
+      "note": "Simulation: trusted patterns injected for the failure signatures present in the traffic. Validated patterns let ControlPlane act on known failures earlier, shifting some deep checks to the fast path without losing recall."
+    }
+  },
+  "arms": {
+    "A_no_checker": {
+      "n": 3000,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positive_rate": 0.0,
+      "f1": 0.0,
+      "false_positives": 0,
+      "false_negatives": 366,
+      "fast_path_pct": 1.0,
+      "deep_eval_pct": 0.0,
+      "intervention_pct": 0.0,
+      "measured_p50_overhead_ms": 0.0,
+      "measured_p95_overhead_ms": 0.0,
+      "measured_mean_overhead_ms": 0.0,
+      "illustrative_p50_with_sim_deep_latency_ms": 0.0,
+      "illustrative_p95_with_sim_deep_latency_ms": 0.0,
+      "mean_checker_cost_usd": 0.0,
+      "risk_coverage_per_cent_checker_cost": null,
+      "p50_overhead_ms": 0.0,
+      "p95_overhead_ms": 0.0
+    },
+    "B_always_deep": {
+      "n": 3000,
+      "precision": 0.8568,
+      "recall": 0.9317,
+      "false_positive_rate": 0.0216,
+      "f1": 0.8927,
+      "false_positives": 57,
+      "false_negatives": 25,
+      "fast_path_pct": 0.0,
+      "deep_eval_pct": 1.0,
+      "intervention_pct": 0.1327,
+      "measured_p50_overhead_ms": 3.513,
+      "measured_p95_overhead_ms": 14.227,
+      "measured_mean_overhead_ms": 5.157,
+      "illustrative_p50_with_sim_deep_latency_ms": 3.513,
+      "illustrative_p95_with_sim_deep_latency_ms": 14.227,
+      "mean_checker_cost_usd": 0.000458,
+      "risk_coverage_per_cent_checker_cost": 20.343,
+      "p50_overhead_ms": 3.513,
+      "p95_overhead_ms": 14.227
+    },
+    "C_controlplane": {
+      "n": 3000,
+      "precision": 0.8568,
+      "recall": 0.9317,
+      "false_positive_rate": 0.0216,
+      "f1": 0.8927,
+      "false_positives": 57,
+      "false_negatives": 25,
+      "fast_path_pct": 0.9367,
+      "deep_eval_pct": 0.0633,
+      "intervention_pct": 0.1327,
+      "measured_p50_overhead_ms": 0.77,
+      "measured_p95_overhead_ms": 3.521,
+      "measured_mean_overhead_ms": 1.086,
+      "illustrative_p50_with_sim_deep_latency_ms": 0.77,
+      "illustrative_p95_with_sim_deep_latency_ms": 3.521,
+      "mean_checker_cost_usd": 7.573e-05,
+      "risk_coverage_per_cent_checker_cost": 123.023,
+      "p50_overhead_ms": 0.77,
+      "p95_overhead_ms": 3.521
+    }
+  }
+}

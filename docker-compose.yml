@@ -1,0 +1,40 @@
+# ControlPlane.ai — one-command startup.
+#   docker compose up --build
+# Backend seeds the synthetic enterprise on first boot, then serves the API.
+# Frontend builds the dashboard and serves it via nginx on http://localhost:5173
+
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      DEMO_MODE: ${DEMO_MODE:-true}
+      CONTROLPLANE_DB_URL: sqlite:////data/controlplane.db
+      CONTROLPLANE_CONFIG_DIR: /config
+      CONTROLPLANE_SEED: ${CONTROLPLANE_SEED:-1729}
+      CONTROLPLANE_SEED_ON_BOOT: "true"
+    volumes:
+      - ./config:/config:ro
+      - controlplane-data:/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/health'); "]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ""   # same-origin; nginx proxies /api -> backend:8000
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  controlplane-data:

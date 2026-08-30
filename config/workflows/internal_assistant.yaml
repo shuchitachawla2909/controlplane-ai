@@ -1,0 +1,11 @@
+# Workflow profile — Internal Knowledge Assistant (§12, §35)
+workflow: internal_assistant
+application: Internal Knowledge Assistant
+risk_class: medium
+business_impact: medium
+latency_budget_ms: 2500
+cost_budget_usd: 0.10
+sensitive_data_policy: strict
+human_review_threshold: 0.80
+allow_async_deep_eval: true
+evidence_expected: true

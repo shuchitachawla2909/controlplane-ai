@@ -1,0 +1,49 @@
+policy:
+  name: decision_support_v1
+  version: "1.0"
+  workflow: decision_support
+  risk_class: high
+
+  thresholds:
+    performance:
+      verify: 0.35
+      escalate: 0.65
+    cost:
+      warn_multiplier: 1.5
+      stop_multiplier: 3.0
+      budget_usd: 1.00
+    responsibility:
+      redact: 0.45
+      block: 0.75
+
+  routing:
+    fast_path_below: 0.22
+    verify_value_threshold: 0.40
+    min_confidence_for_block: 0.70
+    tight_latency_ms: 800
+    novelty_force_verify: 0.65
+
+  human_review:
+    required_for:
+      - high_impact_decision
+      - unresolved_uncertainty_high_impact
+
+  data_policy:
+    sensitive_entities:
+      - EMAIL_ADDRESS
+      - PHONE_NUMBER
+      - CREDIT_CARD
+      - US_SSN
+      - PERSON
+      - FINANCIAL_DATA
+    allowed_data_classes: [public, internal]
+    forbidden_data_classes: [confidential, restricted]
+    pii_action:
+      confidential: block
+      restricted: block
+      internal: redact
+      public: redact
+      default: redact
+
+  latency:
+    budget_ms: 5000

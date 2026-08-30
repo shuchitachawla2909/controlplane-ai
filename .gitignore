@@ -1,0 +1,51 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Databases
+*.db
+*.sqlite3
+backend/controlplane.db
+backend/test_controlplane.db
+
+# Large generated traffic dumps (the committed evaluation dataset is kept)
+data/synthetic/*.jsonl
+
+# results/ (benchmark + evaluation reports) ARE committed as the measured
+# competition evidence — do not ignore them.
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/tsconfig.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs / temp / backup / coverage
+*.log
+*.bak
+*.orig
+*~
+.coverage
+htmlcov/
+*.tmp
+
+# Private development material — never publish
+/instructions.md
+/clarifications.md

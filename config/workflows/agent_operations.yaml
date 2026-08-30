@@ -1,0 +1,12 @@
+# Workflow profile — Agentic Operations Assistant (§12, §35)
+workflow: agent_operations
+application: Agentic Operations Assistant
+risk_class: high
+business_impact: high
+latency_budget_ms: 10000
+cost_budget_usd: 0.50
+max_tool_calls: 8
+max_model_calls: 4
+stop_on_cost_runaway: true
+allow_async_deep_eval: false
+evidence_expected: false

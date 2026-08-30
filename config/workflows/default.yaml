@@ -1,0 +1,9 @@
+# Fallback workflow profile for any unregistered workflow (cold-start safe).
+workflow: default
+application: Unregistered Workflow
+risk_class: medium
+business_impact: medium
+latency_budget_ms: 3000
+cost_budget_usd: 0.10
+allow_async_deep_eval: true
+evidence_expected: false

@@ -1,0 +1,11 @@
+# Workflow profile — Customer Support Assistant (§12, §35)
+# Illustrative prototype values, not claims about any real enterprise.
+workflow: customer_support
+application: Customer Support Assistant
+risk_class: medium
+business_impact: medium
+latency_budget_ms: 1500
+cost_budget_usd: 0.05
+human_review_threshold: 0.85
+allow_async_deep_eval: true
+evidence_expected: true          # RAG assistant — answers should cite policy docs

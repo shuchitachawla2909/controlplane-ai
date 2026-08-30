@@ -1,0 +1,12 @@
+# Workflow profile — Decision Support Assistant (§12, §35)
+# High impact, higher latency tolerance, human oversight. This prototype does
+# NOT make real financial / medical / legal decisions.
+workflow: decision_support
+application: Decision Support Assistant
+risk_class: high
+business_impact: high
+latency_budget_ms: 5000
+cost_budget_usd: 1.00
+human_review_required_for_high_risk: true
+allow_async_deep_eval: false
+evidence_expected: false
