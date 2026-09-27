@@ -1,7 +1,6 @@
 # ControlPlane.ai
 
 ### Adaptive Runtime AI Oversight
-**Accenture Innovation Challenge 2026 — Round 2: Prototype (Problem Track 1)**
 
 > **Observe everything. Investigate selectively. Act proportionally. Learn continuously.**
 
@@ -93,7 +92,7 @@ consume foundation models through APIs and cannot inspect model internals.
 
 ## 2. Why existing controls are not enough
 
-Enterprises (Accenture included) already have Responsible AI governance,
+Enterprises already have Responsible AI governance,
 guardrails, observability, evaluation tooling and IAM. The gap is not "no
 governance". The naive Responsible-AI-Checker design —
 
@@ -542,5 +541,3 @@ hallucination detector, AI firewall, or AI judge.
 > As AI scales, oversight does not have to scale linearly with AI traffic or
 > compute. **ControlPlane makes AI oversight adaptive.**
 
-_Prototype for the Accenture Innovation Challenge 2026. All data is synthetic.
-MIT licensed._
